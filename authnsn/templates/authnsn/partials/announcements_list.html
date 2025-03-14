@@ -1,0 +1,18 @@
+{% for announcement in announcements %}
+<div class="announcement priority-{{ announcement.priority }} mb-4 p-4 rounded-lg shadow border-l-4 
+    {% if announcement.priority == 'high' %}border-red-500 bg-red-50{% elif announcement.priority == 'medium' %}border-blue-500 bg-blue-50{% else %}border-green-500 bg-green-50{% endif %}"
+    {% if forloop.first %}id="latest-announcement"{% endif %}>
+    <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold 
+            {% if announcement.priority == 'high' %}text-red-700{% elif announcement.priority == 'medium' %}text-blue-700{% else %}text-green-700{% endif %}">
+            {{ announcement.title }}
+        </h3>
+        <span class="text-sm text-gray-500">{{ announcement.created_at|date:"M d, Y" }}</span>
+    </div>
+    <p class="mt-2 text-gray-700">{{ announcement.message }}</p>
+</div>
+{% empty %}
+<div class="p-4 text-center text-gray-500 italic">
+    No announcements at this time.
+</div>
+{% endfor %}
